@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 @Controller("/")
 public class HomeController {
 
+    private final MyFooService myFooService;
     private final MyServiceConsumer myServiceConsumer;
 
-    public HomeController(MyServiceConsumer myServiceConsumer) {
+    public HomeController(MyFooService myFooService, MyServiceConsumer myServiceConsumer) {
+        this.myFooService = myFooService;
         this.myServiceConsumer = myServiceConsumer;
     }
 

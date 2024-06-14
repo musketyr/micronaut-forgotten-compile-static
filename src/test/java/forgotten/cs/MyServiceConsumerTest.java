@@ -12,16 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @MicronautTest
 class MyServiceConsumerTest {
 
-    @Inject MyServiceConsumer service;
+    @Inject MainService service;
 
     @TestFactory
     Expectations testMyServices() {
         return Expectations.given("key", "implementation")
-                .<String, Class<?>>are("bar", MyBarService.class)
+                .<String, Class<?>>
+                 are("bar", MyBarService.class)
                 .and("defaultMyService", DefaultMyService.class)
                 .and("foo", MyFooService.class)
                 .verify("service #implementation has key #key", (key, implementation) -> {
-                    Map<String, MyService> serviceMap = service.getMyServices();
+                    Map<String, MyService> serviceMap = service.getMyServiceConsumer().getMyServices();
                     serviceMap.forEach((k, v) -> {
                         if (implementation.isInstance(v)) {
                             assertEquals(key, k);
